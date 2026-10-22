@@ -1,0 +1,10 @@
+crop,method,scenarios,mean_distance_km,mean_transport_cost_inr,mean_cost_per_quintal,feasible_scenarios
+Onion,Legacy best_route offline formula,12,45.945,22.967499999999998,22.967499999999998,12
+Onion,Nearest feasible warehouse,12,45.269168260682015,22.634584130341008,22.634584130341008,12
+Onion,Warehouse MILP allocation + Haversine,12,45.94258350276056,22.97129175138028,22.97129175138028,12
+Rice,Legacy best_route offline formula,12,45.945,22.967499999999998,22.967499999999998,12
+Rice,Nearest feasible warehouse,12,45.269168260682015,22.634584130341008,22.634584130341008,12
+Rice,Warehouse MILP allocation + Haversine,12,45.94258350276056,22.97129175138028,22.97129175138028,12
+Tomato,Legacy best_route offline formula,12,22.11,11.06,11.06,12
+Tomato,Nearest feasible warehouse,12,22.114505499066308,11.057252749533156,11.057252749533156,12
+Tomato,Warehouse MILP allocation + Haversine,12,22.114505499066308,11.057252749533156,11.057252749533156,12

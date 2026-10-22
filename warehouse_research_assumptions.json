@@ -1,0 +1,22 @@
+{
+  "capacity_source_unit": "metric_tonne",
+  "capacity_target_unit": "quintal",
+  "quintals_per_metric_tonne": 10.0,
+  "storage_rate_currency": "INR",
+  "storage_rate_source_unit": "per_metric_tonne",
+  "storage_rate_time_unit": "month",
+  "storage_rate_interpretation": "Configurable assumption: Storage_Cost_per_MT is treated as INR per metric tonne per month because the source file does not state currency or billing period.",
+  "transport_rate_inr_per_km_per_metric_tonne": 5.0,
+  "transport_rate_interpretation": "Scenario assumption retained from routing.compute_transport_cost default; not an observed carrier quote.",
+  "transport_distance_method": "haversine_straight_line_from_warehouse_coordinate_centroid",
+  "origin_override_latitude": null,
+  "origin_override_longitude": null,
+  "origin_interpretation": "No farmer origins are available. Unless both overrides are set, use the arithmetic centroid of warehouse coordinates as a synthetic reference origin; resulting distances are straight-line proxies, not road distances or farmer routes.",
+  "unallocated_penalty_inr_per_quintal": 1000000.0,
+  "unallocated_penalty_interpretation": "Computational feasibility penalty only, not included in reported storage-plus-transport total cost and not an observed economic loss.",
+  "sensitivity": {
+    "storage_cost_multipliers": [0.5, 1.0, 1.5, 2.0],
+    "transport_cost_multipliers": [0.5, 1.0, 1.5, 2.0],
+    "available_quantity_multipliers": [0.5, 1.0, 1.5]
+  }
+}

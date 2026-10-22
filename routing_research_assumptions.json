@@ -1,0 +1,23 @@
+{
+  "routing_problem_class": "scenario-based single-leg reference-origin-to-warehouse transport evaluation",
+  "not_a_vrp": true,
+  "origin_method": "warehouse coordinate centroid from warehouse_research_assumptions.json",
+  "origin_is_farmer_location": false,
+  "destination_source": "warehouse_id joined to supplied warehouse dataset coordinates",
+  "distance_method": "Haversine straight-line distance",
+  "distance_unit": "km",
+  "road_distance_available": false,
+  "osrm_enabled": false,
+  "osrm_reason": "The route origin is a synthetic warehouse centroid, not an observed farmer/customer origin; the evaluator will not request road routes for synthetic coordinates.",
+  "transport_rate_inr_per_km_per_metric_tonne": 5.0,
+  "transport_rate_provenance": "Scenario assumption inherited from routing.compute_transport_cost default; not an observed carrier quote.",
+  "quintals_per_metric_tonne": 10.0,
+  "vehicle_fleet_available": false,
+  "vehicle_capacity_available": false,
+  "travel_time_reported": false,
+  "time_windows_available": false,
+  "sensitivity": {
+    "transport_cost_multipliers": [0.5, 1.0, 1.5, 2.0],
+    "available_quantity_multipliers": [0.5, 1.0, 1.5]
+  }
+}

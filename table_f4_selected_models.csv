@@ -1,0 +1,4 @@
+crop,selected_model,criterion
+Rice,sarima,Lowest mean validation RMSE among valid folds
+Onion,lstm,Lowest mean validation RMSE among valid folds
+Tomato,sarima,Lowest mean validation RMSE among valid folds

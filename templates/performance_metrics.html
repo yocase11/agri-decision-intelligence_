@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Metrics — Agri Forecast</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        .hero {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 40px 0;
+        }
+        .hero h1 {
+            font-size: 2.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero p {
+            font-size: 1.05rem;
+            max-width: 760px;
+        }
+        .metric-card {
+            border-radius: 1rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            border: none;
+        }
+        .metric-card .card-body {
+            padding: 1.5rem;
+        }
+        .table thead th {
+            background: #e9f7ef;
+        }
+        .section-title {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .badge-topic {
+            background: #20c997;
+            color: white;
+        }
+        .metric-definition {
+            margin-bottom: 1.25rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 1rem;
+            border: 1px solid #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1><i class="fas fa-chart-line me-2"></i>Performance Metrics</h1>
+                    <p>Complete reference for forecast and model evaluation metrics. From basic error measurements to advanced statistical indicators, this page contains the metrics used to assess agricultural price forecasting, demand prediction, and decision support models.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                    <span class="btn btn-light btn-lg disabled"><i class="fas fa-file-alt me-2"></i>Standalone Metrics</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-5">
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        {% if result %}
+            <section class="section-title">
+                <h2>Performance Summary for {{ selected_crop }}</h2>
+                <p>The report shows the current full pipeline forecast and decision metrics. It will also be saved to <code>models/performance_metrics_report.html</code>.</p>
+            </section>
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                    <div class="metric-card card">
+                        <div class="card-body">
+                            <h5 class="card-title">Forecast Model</h5>
+                            <p class="card-text">{{ result.model }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="metric-card card">
+                        <div class="card-body">
+                            <h5 class="card-title">Forecast Output</h5>
+                            <p class="mb-0">{{ result.forecasts | join(', ') }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="metric-card card">
+                        <div class="card-body">
+                            <h5 class="card-title">Decision Summary</h5>
+                            <p class="mb-0"><strong>Best time:</strong> {{ result.best_time }}</p>
+                            <p class="mb-0"><strong>Warehouse:</strong> {{ result['warehouse']['name'] if result['warehouse'] else 'N/A' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <section>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="metric-card card">
+                        <div class="card-body">
+                            <h5 class="card-title">Basic Metrics</h5>
+                            <p class="card-text">Standard forecasting error metrics to measure absolute and squared deviations between predictions and actual observations.</p>
+                            <span class="badge badge-topic">MAE</span>
+                            <span class="badge badge-topic">MSE</span>
+                            <span class="badge badge-topic">RMSE</span>
+                            <span class="badge badge-topic">MAPE</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="metric-card card">
+                        <div class="card-body">
+                            <h5 class="card-title">Intermediate Metrics</h5>
+                            <p class="card-text">Performance indicators built from residuals and correlation to identify model bias, scale independence, and relative forecast quality.</p>
+                            <span class="badge badge-topic">SMAPE</span>
+                            <span class="badge badge-topic">RMSLE</span>
+                            <span class="badge badge-topic">MBE</span>
+                            <span class="badge badge-topic">R²</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="metric-card card">
+                        <div class="card-body">
+                            <h5 class="card-title">Advanced Metrics</h5>
+                            <p class="card-text">Statistical and information criteria for advanced evaluation, model selection, and time-series reliability in production systems.</p>
+                            <span class="badge badge-topic">AIC / BIC</span>
+                            <span class="badge badge-topic">Theil's U</span>
+                            <span class="badge badge-topic">Correlation</span>
+                            <span class="badge badge-topic">Explained Variance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-title">
+            <h2>Basic Forecast Metrics</h2>
+            <p>These metrics are commonly used in regression and time-series forecasting to evaluate average error and variance.</p>
+        </section>
+
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Definition</th>
+                        <th>Formula</th>
+                        <th>Interpretation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>MAE</strong></td>
+                        <td>Mean Absolute Error</td>
+                        <td><code>MAE = (1/n) * Σ |yᵢ - ŷᵢ|</code></td>
+                        <td>Average magnitude of forecast errors, easy to interpret in original units.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MSE</strong></td>
+                        <td>Mean Squared Error</td>
+                        <td><code>MSE = (1/n) * Σ (yᵢ - ŷᵢ)²</code></td>
+                        <td>Penalizes larger errors, useful for optimization and loss functions.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RMSE</strong></td>
+                        <td>Root Mean Squared Error</td>
+                        <td><code>RMSE = sqrt(MSE)</code></td>
+                        <td>Root-scaled error that is comparable to the units of the target variable.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MAPE</strong></td>
+                        <td>Mean Absolute Percentage Error</td>
+                        <td><code>MAPE = (100/n) * Σ |(yᵢ - ŷᵢ) / yᵢ|</code></td>
+                        <td>Relative error in percent; sensitive when actual values are near zero.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <section class="section-title">
+            <h2>Intermediate Forecast Metrics</h2>
+            <p>These metrics provide scale-independent measures and improved handling of skewed forecast distributions.</p>
+        </section>
+
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Definition</th>
+                        <th>Formula</th>
+                        <th>Interpretation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SMAPE</strong></td>
+                        <td>Symmetric Mean Absolute Percentage Error</td>
+                        <td><code>SMAPE = (100/n) * Σ (|yᵢ - ŷᵢ| / ((|yᵢ| + |ŷᵢ|) / 2))</code></td>
+                        <td>Symmetric percentage error that reduces bias for small actual values.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RMSLE</strong></td>
+                        <td>Root Mean Squared Log Error</td>
+                        <td><code>RMSLE = sqrt((1/n) * Σ (log(ŷᵢ + 1) - log(yᵢ + 1))²)</code></td>
+                        <td>Used for non-negative targets and when relative growth is more important than absolute difference.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MBE</strong></td>
+                        <td>Mean Bias Error</td>
+                        <td><code>MBE = (1/n) * Σ (ŷᵢ - yᵢ)</code></td>
+                        <td>Positive values indicate overprediction; negative values indicate underprediction.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>R²</strong></td>
+                        <td>Coefficient of Determination</td>
+                        <td><code>R² = 1 - (Σ (yᵢ - ŷᵢ)² / Σ (yᵢ - ȳ)²)</code></td>
+                        <td>Explains how much variance is captured by the model; closer to 1 is better.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <section class="section-title">
+            <h2>Advanced Forecast & Model Selection Metrics</h2>
+            <p>These advanced metrics help compare models, validate assumptions, and select the best forecasting approach.</p>
+        </section>
+
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Definition</th>
+                        <th>Formula</th>
+                        <th>Interpretation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>AIC</strong></td>
+                        <td>Akaike Information Criterion</td>
+                        <td><code>AIC = 2k - 2 ln(L)</code></td>
+                        <td>Model complexity vs fit; lower is better for comparing candidate models.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BIC</strong></td>
+                        <td>Bayesian Information Criterion</td>
+                        <td><code>BIC = k ln(n) - 2 ln(L)</code></td>
+                        <td>Penalizes complexity more strongly than AIC; useful for time-series models.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Theil's U</strong></td>
+                        <td>Relative forecast error statistic</td>
+                        <td><code>U = sqrt(Σ (ŷᵢ - yᵢ)² / Σ (yᵢ - yᵢ₋₁)²)</code></td>
+                        <td>Values < 1 indicate forecast outperforms naïve persistence; > 1 suggests underperformance.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Explained Variance</strong></td>
+                        <td>Variance captured by the model</td>
+                        <td><code>EV = 1 - Var(yᵢ - ŷᵢ) / Var(yᵢ)</code></td>
+                        <td>Measures how well the model explains the variability of the target.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pearson Correlation</strong></td>
+                        <td>Linear correlation between predictions and actuals</td>
+                        <td><code>ρ = Cov(y, ŷ) / (σ_y σ_ŷ)</code></td>
+                        <td>Values closer to 1 imply strong positive agreement between values.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Spearman Correlation</strong></td>
+                        <td>Rank-based correlation between predictions and actuals</td>
+                        <td><code>ρ_s = 1 - (6 Σ dᵢ² / (n (n² - 1)))</code></td>
+                        <td>Useful when monotonic ordering is more important than exact values.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <section class="section-title">
+            <h2>Metric Definitions & Notes</h2>
+        </section>
+
+        <div class="metric-definition">
+            <h5>Forecast Accuracy</h5>
+            <p>Accuracy metrics are used to quantify the difference between forecasted values and observed values. Lower error metrics typically mean better performance, but the best metric depends on business goals and scale.</p>
+        </div>
+
+        <div class="metric-definition">
+            <h5>Scale Sensitivity</h5>
+            <p>MAE, MSE, and RMSE are scale-dependent and appropriate when the target unit is meaningful. Percentage-based metrics such as MAPE and SMAPE are better when comparing across different crop prices or market segments.</p>
+        </div>
+
+        <div class="metric-definition">
+            <h5>Model Selection</h5>
+            <p>Information criteria like AIC and BIC are helpful for selecting between ARIMA, SARIMA, and other statistical models without requiring additional validation data. They balance fit and complexity.</p>
+        </div>
+
+        <div class="metric-definition">
+            <h5>Bias & Correlation</h5>
+            <p>MBE measures directional bias. Correlation metrics verify whether the model preserves the trend and ranking of actual values, which is essential for decisions based on forecast direction.</p>
+        </div>
+
+        <div class="section-title">
+            <h2>How to Use This Page</h2>
+            <p>Use the metric categories to choose the right evaluation technique for each stage of your agricultural forecasting pipeline:</p>
+            <ul>
+                <li>Basic metrics for quick model comparisons.</li>
+                <li>Intermediate metrics for handling percentage errors and growth-based forecasts.</li>
+                <li>Advanced metrics for model selection, time-series validation, and robust production monitoring.</li>
+            </ul>
+        </div>
+
+        <section class="section-title">
+            <h2>Forecast Metrics Comparison</h2>
+            <p>Performance metrics for all forecast algorithms in one view. Actual values are filled for the implemented models; additional algorithms are shown as ready-to-populate placeholders.</p>
+        </section>
+
+        <div class="table-responsive mb-4">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Algorithm</th>
+                        <th>MAE</th>
+                        <th>RMSE</th>
+                        <th>MAPE</th>
+                        <th>R²</th>
+                        <th>SMAPE</th>
+                        <th>RMSLE</th>
+                        <th>MBE</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for algo, metrics in result.all_model_metrics.items() %}
+                        <tr>
+                            <td>{{ algo }}</td>
+                            {% if metrics %}
+                                <td>{{ metrics.get('MAE') | round(4) if metrics.get('MAE') is not none else 'N/A' }}</td>
+                                <td>{{ metrics.get('RMSE') | round(4) if metrics.get('RMSE') is not none else 'N/A' }}</td>
+                                <td>{{ metrics.get('MAPE') | round(4) if metrics.get('MAPE') is not none else 'N/A' }}</td>
+                                <td>{{ metrics.get('R2') | round(4) if metrics.get('R2') is not none else 'N/A' }}</td>
+                                <td>{{ metrics.get('SMAPE') | round(4) if metrics.get('SMAPE') is not none else 'N/A' }}</td>
+                                <td>{{ metrics.get('RMSLE') | round(4) if metrics.get('RMSLE') is not none else 'N/A' }}</td>
+                                <td>{{ metrics.get('MBE') | round(4) if metrics.get('MBE') is not none else 'N/A' }}</td>
+                                <td>{{ metrics.get('Pearson') | round(4) if metrics.get('Pearson') is not none else 'N/A' }}</td>
+                                <td>{{ metrics.get('Spearman') | round(4) if metrics.get('Spearman') is not none else 'N/A' }}</td>
+                            {% else %}
+                                <td colspan="9" class="text-center">No metrics available</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>Prophet</td>
+                        <td colspan="8" class="text-center">Placeholder</td>
+                    </tr>
+                    <tr>
+                        <td>Exponential Smoothing</td>
+                        <td colspan="8" class="text-center">Placeholder</td>
+                    </tr>
+                    <tr>
+                        <td>Holt-Winters</td>
+                        <td colspan="8" class="text-center">Placeholder</td>
+                    </tr>
+                    <tr>
+                        <td>Random Forest</td>
+                        <td colspan="8" class="text-center">Placeholder</td>
+                    </tr>
+                    <tr>
+                        <td>XGBoost</td>
+                        <td colspan="8" class="text-center">Placeholder</td>
+                    </tr>
+                    <tr>
+                        <td>SVR</td>
+                        <td colspan="8" class="text-center">Placeholder</td>
+                    </tr>
+                    <tr>
+                        <td>Decision Tree</td>
+                        <td colspan="8" class="text-center">Placeholder</td>
+                    </tr>
+                    <tr>
+                        <td>Neural Network</td>
+                        <td colspan="8" class="text-center">Placeholder</td>
+                    </tr>
+                    <tr>
+                        <td>Ensemble</td>
+                        <td colspan="8" class="text-center">Placeholder</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <section class="section-title">
+            <h2>Decision Support Metrics</h2>
+            <p>Summary of the system recommendations, profit projections, and operational cost assumptions.</p>
+        </section>
+
+        <div class="table-responsive mb-5">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Crop</th>
+                        <th>Decision</th>
+                        <th>Current Price</th>
+                        <th>Forecast Price</th>
+                        <th>Profit Estimate</th>
+                        <th>Newsvendor Qty</th>
+                        <th>Warehouse</th>
+                        <th>Route (km)</th>
+                        <th>Risk</th>
+                        <th>Anomaly</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ selected_crop }}</td>
+                        <td>{{ 'Store' if result.forecasts[0] > 0 else 'Review' }}</td>
+                        <td>{{ result.forecasts[0] | round(4) }}</td>
+                        <td>{{ result.forecasts[0] | round(4) }}</td>
+                        <td>{{ result.profit | round(2) }}</td>
+                        <td>{{ result.newsvendor_quantity }}</td>
+                        <td>{{ result['warehouse']['name'] if result['warehouse'] else 'N/A' }}</td>
+                        <td>{{ result['route']['distance_km'] | round(2) if result['route'] else 'N/A' }}</td>
+                        <td>{{ result.risk | round(3) }}</td>
+                        <td>{{ 'Yes' if result.anomaly else 'No' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

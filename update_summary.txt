@@ -1,0 +1,52 @@
+Agricultural Decision Intelligence System - Update Summary
+
+Date: 2026-03-31
+
+Completed work:
+1. Implemented full 3-stage pipeline:
+   - Price forecasting (ARIMA, SARIMA, LSTM) with best-model selection (RMSE)
+   - Sell vs Store decision with spoilage, storage cost, transport cost logic
+   - Warehouse selection (MCDM/TOPSIS), and routing optimization
+2. Added Streamlit SaaS UI with multiple pages, login, history, report download.
+3. Added realistic storage cost and spoilage updates:
+   - Tomato=0.6/kg, Onion=0.55/kg, Rice=0.3/kg
+   - Tomato spoilage=0.15, Onion=0.08, Rice=0.01
+4. Stabilized forecasts (0.7x to 1.5x current) and seasonal adjustments.
+5. Implemented OSRM real-road routing & distance/time fetching.
+6. Added transport cost model with detailed modifiers (fuel, toll, permit, driver wage).
+7. Implemented offline-mode fallback for routing using haversine.
+8. Added multi-warehouse optimization using OSRM / VRP-style cost computation.
+9. Enhanced UI with glassmorphism, animations, 3D plotly surfaces, high-end SaaS style.
+10. Added database (SQLite) support for farmer history persistence.
+11. Added tests coverage and integration; `py -3.13 -m pytest -q` passing with 10 tests.
+12. Created dynamic map with farmer/warehouse markers and route line plus Google Maps navigation.
+13. Implemented advanced module `src/advanced_decision_system.py`:
+    - Forecasting: ARIMA/SARIMA/LSTM ensemble + RMSE-based selection
+    - Selling-time DP model with stochastic approximation
+    - Cold storage MILP optimization
+    - Multi-warehouse routing VRP + OSRM integration
+    - Tabu and genetic heuristics modules
+14. Created complete system `src/complete_system.py`:
+    - ML forecasting (ARIMA/SARIMA/LSTM ensemble)
+    - Weather risk modeling (rainfall/temperature/humidity)
+    - Demand signal adjustment
+    - Price anomaly detection (Isolation Forest)
+    - Selling time optimization (DP with spoilage/storage)
+    - AHP weight calculation for decision criteria
+    - Cold storage MILP + AHP multi-objective optimization
+    - Transport VRP with OSRM real-road routing
+    - Game theory cooperative farmer coalitions
+    - Self-learning feedback loop for model updates
+    - Integrated pipeline with risk adjustment and anomaly handling
+15. Added comprehensive tests in `tests/test_complete_system.py` for all modules
+16. All tests passing: 20 passed with warnings (expected from ML libraries)
+
+Current known issue:
+- Streamlit run returns exit code 1 in some environments with Python 3.10 mismatch; using Python 3.13 is recommended.
+- Pip install commands failing with exit code 1 when using Python 3.10; ensure using Python 3.13 for all installations.
+- Some terminal commands show exit code 1 due to version conflicts; use `py -3.13` prefix for Python 3.13 commands.
+
+Next suggested action:
+- Add Dockerfile + GitHub Actions for CI/CD.
+- Add OAuth and RBAC.
+- Integrate live Agmarknet API production.

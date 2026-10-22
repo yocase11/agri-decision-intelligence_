@@ -1,0 +1,5 @@
+dataset,rows,columns,missing_cells,duplicate_rows,features,crop_counts
+price dataset (1).csv,101,5,24,0,"Year, Quarter, Crop, Price_INR_per_Quintal, Final_Price","{""Onion"": 34, ""Rice"": 34, ""Tomato"": 33}"
+farmer_crop_dataset (1).csv,450,5,0,0,"Serial_No, Farmer_ID, Crop_Cultivated, Crop_Yield_tonnes_per_acre, Season","{""Rice"": 150, ""Onion"": 150, ""Tomato"": 150}"
+farmer_decision_history.csv,9,12,8,0,"timestamp, crop, quantity_kg, district, decision, current_price, forecast_price, profit_now, profit_store, storage_cost, transport_cost, recommended_warehouse",Not present
+tamilnadu_full_warehouse_dataset (1).csv,103,12,0,0,"Warehouse_ID, District, Location, Latitude, Longitude, Capacity_MT, Storage_Type, Storage_Cost_per_MT, Tomato_Supported, Onion_Supported, Rice_Supported, Spoilage_Rate",Not present

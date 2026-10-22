@@ -1,0 +1,13 @@
+crop,model,horizon,number_of_decisions,mean_realized_net_value_inr
+Onion,lstm,1,3,2277.487938
+Onion,lstm,2,3,2277.487938
+Onion,lstm,3,3,2277.487938
+Onion,lstm,4,3,2277.487938
+Rice,sarima,1,3,2126.83813959
+Rice,sarima,2,3,2155.919240333333
+Rice,sarima,3,3,2155.919240333333
+Rice,sarima,4,3,2155.919240333333
+Tomato,sarima,1,3,1994.3115612666668
+Tomato,sarima,2,3,1548.7093718
+Tomato,sarima,3,3,1556.6972023333335
+Tomato,sarima,4,3,1556.6972023333335

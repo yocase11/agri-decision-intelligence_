@@ -1,0 +1,104 @@
+Warehouse_ID,District,Location,Latitude,Longitude,Capacity_MT,Storage_Type,Storage_Cost_per_MT,Tomato_Supported,Onion_Supported,Rice_Supported,Spoilage_Rate
+WH001,Coimbatore,Pollachi,11.00678,76.95509,25,Cold Storage,2.59,0,0,1,0.053
+WH002,Coimbatore,Senjeri,11.04404,76.92014,25,Cold Storage,2.03,0,0,0,0.032
+WH003,Coimbatore,Anaimalai,11.04337,77.00107,25,Cold Storage,2.04,1,1,0,0.024
+WH004,Coimbatore,Thondamuthur,10.97665,76.96687,25,Cold Storage,2.67,0,1,0,0.05
+WH005,Coimbatore,Annur,10.97927,76.93363,25,Cold Storage,2.81,0,1,0,0.067
+WH006,Coimbatore,Karamadai,10.98832,76.91747,50,Cold Storage,2.13,1,1,1,0.07
+WH007,Coimbatore,Sikkadasampalayam,10.99691,76.96714,500,Cold Storage,1.91,0,0,0,0.024
+WH008,Coimbatore,Kinathukadavu,10.98797,76.9925,500,Cold Storage,2.11,0,1,0,0.067
+WH009,Coimbatore,Vadakipalayam,10.97903,76.95793,25,Cold Storage,2.6,1,1,0,0.076
+WH010,Coimbatore,Singanallur US,11.02245,76.99889,15,Urban Storage,2,0,1,0,0.021
+WH011,Coimbatore,Sulur PPC,11.04748,76.91815,315,PPC,2.29,1,1,0,0.058
+WH012,Coimbatore,Anaimalai PPC,11.05637,76.92765,40,PPC,1.64,1,0,0,0.079
+WH013,Coimbatore,Pollachi PPC,10.97121,76.92096,40,PPC,1.9,0,1,0,0.069
+WH014,Coimbatore,Vadakkipalayam PPC,11.00484,76.96637,40,PPC,1.65,1,0,1,0.069
+WH015,Coimbatore,Chikathasapalayam PPC,10.9837,76.92101,40,PPC,2.02,1,1,0,0.022
+WH016,Cuddalore,Cuddalore,11.78721,79.72632,25,Cold Storage,2.53,1,1,1,0.068
+WH017,Cuddalore,Panruti,11.71646,79.79017,25,Cold Storage,1.92,0,1,1,0.024
+WH018,Cuddalore,Virudhachalam,11.71552,79.75892,25,Cold Storage,2.12,0,1,1,0.034
+WH019,Dharmapuri,Dharmapuri,12.10634,78.18537,1000,Cold Storage,2.33,0,0,1,0.058
+WH020,Dharmapuri,Harur,12.15315,78.18955,25,Cold Storage,2.04,1,1,1,0.037
+WH021,Dharmapuri,Pennagaram,12.12882,78.18905,25,Cold Storage,2.13,1,1,1,0.049
+WH022,Dharmapuri,Palacode,12.14626,78.12065,50,Cold Storage,2.47,0,0,1,0.023
+WH023,Dharmapuri,Palacode PPC,12.0984,78.11391,100,PPC,2.07,0,1,1,0.052
+WH024,Dharmapuri,Pennagaram PPC,12.16525,78.16869,110,PPC,1.67,1,1,1,0.076
+WH025,Dindigul,Dindigul,10.32732,77.93318,25,Cold Storage,1.94,0,1,0,0.029
+WH026,Dindigul,Ottanchathram,10.37324,77.93849,30,Cold Storage,2.11,1,0,1,0.052
+WH027,Dindigul,Palani,10.37323,78.01772,30,Cold Storage,1.55,0,0,0,0.073
+WH028,Dindigul,Batlagundu,10.3376,78.01055,5,Cold Storage,2.24,1,1,1,0.073
+WH029,Dindigul,Gopalpatti,10.34832,78.00522,25,Cold Storage,2.71,1,1,1,0.052
+WH030,Dindigul,Palani PPC,10.3422,77.92408,500,PPC,2.48,0,1,1,0.06
+WH031,Dindigul,Gopalpatti PPC,10.35258,77.9477,500,PPC,2.54,1,0,0,0.079
+WH032,Erode,Avalpoondurai,11.38176,77.67968,25,Cold Storage,1.54,0,0,1,0.025
+WH033,Erode,Kodumudi,11.30913,77.76809,25,Cold Storage,2.33,0,0,0,0.067
+WH034,Erode,Anthiyur,11.37675,77.72939,25,Cold Storage,1.87,0,0,0,0.061
+WH035,Erode,Sathyamangalam,11.31345,77.73463,25,Cold Storage,1.56,0,1,0,0.076
+WH036,Erode,Punjai Puliyampatti,11.3697,77.70133,25,Cold Storage,2.65,0,0,0,0.043
+WH037,Erode,Sathyamangalam Large,11.33674,77.72294,100,Cold Storage,1.87,0,0,1,0.035
+WH038,Erode,Gopichettipalayam,11.35605,77.72275,1000,Cold Storage,2.46,0,0,0,0.079
+WH039,Kanyakumari,Thingal Sandhai,8.12208,77.55867,25,Cold Storage,2.31,0,1,1,0.029
+WH040,Karur,Karur Rayanur,10.9735,78.07079,25,Cold Storage,2.66,1,0,0,0.046
+WH041,Krishnagiri,Krishnagiri,12.48451,78.19522,75,Cold Storage,2.23,0,0,0,0.066
+WH042,Krishnagiri,Pochampalli,12.48248,78.20726,25,Cold Storage,2.95,1,1,0,0.047
+WH043,Krishnagiri,Uthangarai,12.52417,78.16684,25,Cold Storage,1.6,1,0,1,0.031
+WH044,Krishnagiri,Hosur,12.49371,78.25262,75,Cold Storage,2.56,0,1,0,0.073
+WH045,Krishnagiri,Hosur PPC,12.56235,78.212,375,PPC,2.76,1,0,1,0.033
+WH046,Krishnagiri,Alapatti PPC,12.55214,78.25547,25,PPC,2.24,1,0,0,0.065
+WH047,Krishnagiri,Krishnagiri PPC,12.56299,78.1775,25,PPC,2.18,0,1,0,0.055
+WH048,Krishnagiri,Kaverypattinam PPC,12.55993,78.19819,25,PPC,2.54,0,1,1,0.064
+WH049,Krishnagiri,Rayakottai PPC,12.56208,78.19577,220,PPC,1.75,1,0,1,0.065
+WH050,Krishnagiri,Kaamanthotti PPC,12.4905,78.16702,50,PPC,1.52,0,1,0,0.042
+WH051,Krishnagiri,Pochampalli PPC,12.57855,78.18997,600,PPC,1.8,0,1,0,0.038
+WH052,Krishnagiri,Thenkannikottai PPC,12.50585,78.21564,25,PPC,1.64,0,1,1,0.047
+WH053,Madurai,Tirumangalam,9.91338,78.11379,25,Cold Storage,2.33,1,0,1,0.07
+WH054,Namakkal,Namagiripettai,11.21513,78.21408,25,Cold Storage,2.21,1,1,1,0.028
+WH055,Namakkal,Paramathivelur,11.24524,78.19161,25,Cold Storage,2.68,0,1,0,0.034
+WH056,Namakkal,Thiruchengodu,11.17789,78.18285,25,Cold Storage,1.63,0,1,1,0.046
+WH057,Namakkal,Mohanur,11.2005,78.14197,5,Cold Storage,2.48,1,1,1,0.021
+WH058,Nilgiris,Hosahatti PPC,11.36201,76.68248,10,PPC,1.58,1,0,1,0.033
+WH059,Nilgiris,Anikorai PPC,11.45776,76.66871,10,PPC,2.88,0,1,0,0.052
+WH060,Nilgiris,Davanai PPC,11.43945,76.65935,25,PPC,2.28,1,0,1,0.046
+WH061,Nilgiris,Uthagai Rose Park PPC,11.36053,76.70114,500,PPC,1.54,0,0,0,0.068
+WH062,Nilgiris,Kothagiri PPC,11.36632,76.73451,10,PPC,2.42,0,0,0,0.032
+WH063,Nilgiris,New Alanji PPC,11.37553,76.73663,10,PPC,2.33,1,1,0,0.047
+WH064,Nilgiris,Sullikoodu PPC,11.38322,76.68076,7,PPC,2.54,1,1,1,0.05
+WH065,Nilgiris,Upatti PPC,11.45454,76.67535,10,PPC,2.38,0,0,1,0.047
+WH066,Nilgiris,Ayyankoli PPC,11.38273,76.728,10,PPC,2.62,1,0,0,0.033
+WH067,Perambalur,Chettikulam,11.22049,78.86213,50,Cold Storage,2.12,0,1,1,0.05
+WH068,Perambalur,Perambalur,11.23452,78.84848,25,Cold Storage,2.63,1,1,0,0.067
+WH069,Ariyalur,Ariyalur,11.16991,79.10305,25,Cold Storage,2.6,1,1,1,0.075
+WH070,Pudukottai,Illupur,10.39481,78.80198,100,Cold Storage,1.61,1,1,1,0.077
+WH071,Pudukottai,Alangudi,10.42087,78.77424,25,Cold Storage,2.18,1,1,0,0.05
+WH072,Ramanathapuram,Paramakudi,9.37396,78.78078,100,Cold Storage,2.83,1,1,0,0.059
+WH073,Ramanathapuram,Kamudhi,9.34601,78.86275,25,Cold Storage,1.76,0,0,1,0.048
+WH074,Ramanathapuram,Ettivayal,9.34001,78.7984,2000,Cold Storage,1.96,1,1,0,0.036
+WH075,Ramanathapuram,Paramakudi PPC,9.40596,78.83093,10,PPC,1.59,0,0,1,0.051
+WH076,Ramanathapuram,Muthukulathur PPC,9.39719,78.86511,10,PPC,1.79,1,1,1,0.03
+WH077,Ramanathapuram,Kamuthi PPC,9.37776,78.78961,10,PPC,1.6,0,1,0,0.062
+WH078,Salem,Salem,11.65147,78.18304,25,Cold Storage,1.79,0,1,1,0.02
+WH079,Salem,Athur,11.67972,78.17843,25,Cold Storage,2.71,1,1,0,0.064
+WH080,Salem,Vazhapadi,11.68054,78.13394,50,Cold Storage,2.7,0,0,1,0.047
+WH081,Salem,Gengavalli,11.63257,78.10199,25,Cold Storage,1.95,0,1,1,0.06
+WH082,Salem,Mecheri,11.7015,78.14912,125,Cold Storage,1.92,0,1,0,0.077
+WH083,Sivagangai,Singampunari,9.82655,78.43222,25,Cold Storage,2.17,1,1,0,0.037
+WH084,Thanjavur,Valapakudi,10.76546,79.09621,100,Cold Storage,2.24,0,0,0,0.059
+WH085,Thanjavur,Thanjavur,10.75374,79.15678,25,Cold Storage,2.94,0,1,0,0.069
+WH086,Theni,Cumbum,10.05583,77.45149,25,Cold Storage,2.92,1,0,1,0.034
+WH087,Theni,Theni,10.03248,77.5126,25,Cold Storage,2.87,0,1,1,0.069
+WH088,Theni,Odaipatti,9.9661,77.49045,50,Cold Storage,3,1,1,1,0.035
+WH089,Theni,Chinnamanur,9.98202,77.52664,5,Cold Storage,2.05,1,0,0,0.072
+WH090,Theni,Cumbum Large,10.03738,77.44283,500,Cold Storage,2.33,0,1,1,0.059
+WH091,Theni,Theni PPC,9.98172,77.52781,25,PPC,2.68,1,1,0,0.058
+WH092,Theni,Cinnamanur PPC,10.04999,77.47636,38,PPC,2.64,0,0,0,0.079
+WH093,Theni,Cumbum PPC,9.97943,77.46039,50,PPC,2.84,1,0,0,0.051
+WH094,Thoothukudi,Kovilpatti,8.7628,78.11338,25,Cold Storage,2.34,1,1,1,0.055
+WH095,Thoothukudi,Thoothukudi,8.77324,78.15572,25,Cold Storage,1.56,0,0,1,0.077
+WH096,Thoothukudi,Pudur,8.72187,78.17802,25,Cold Storage,1.84,1,0,0,0.061
+WH097,Thoothukudi,Kazhugumalai,8.76332,78.13269,25,Cold Storage,2.83,0,1,1,0.066
+WH098,Thoothukudi,Sri Vaigundam,8.80376,78.09132,5,Cold Storage,2.34,1,0,1,0.041
+WH099,Thoothukudi,Vilathikulam,8.73166,78.09636,100,Cold Storage,1.72,1,0,0,0.065
+WH100,Thoothukudi,Ettaiyapuram,8.75073,78.08355,25,Cold Storage,2.92,0,0,1,0.026
+WH101,Thoothukudi,Sathankulam,8.76784,78.11654,25,Cold Storage,1.72,0,1,0,0.065
+WH102,Thoothukudi,Puthur PPC,8.7536,78.08681,10,PPC,2.09,0,1,1,0.06
+WH103,Thoothukudi,Vilathikulam PPC,8.78258,78.11274,10,PPC,1.84,0,0,0,0.035

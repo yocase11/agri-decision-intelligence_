@@ -1,0 +1,418 @@
+{
+  "decision_report": [
+    {
+      "crop": "Onion",
+      "quantity_kg": 2561150.0000000005,
+      "storage_plan": {
+        "warehouse_allocations": {
+          "WH003_Onion": 25.0,
+          "WH004_Onion": 25.0,
+          "WH005_Onion": 25.0,
+          "WH006_Onion": 50.0,
+          "WH008_Onion": 500.0,
+          "WH009_Onion": 25.0,
+          "WH010_Onion": 15.0,
+          "WH011_Onion": 315.0,
+          "WH013_Onion": 40.0,
+          "WH015_Onion": 40.0,
+          "WH016_Onion": 25.0,
+          "WH017_Onion": 25.0,
+          "WH018_Onion": 25.0,
+          "WH020_Onion": 25.0,
+          "WH021_Onion": 25.0,
+          "WH023_Onion": 100.0,
+          "WH024_Onion": 110.0,
+          "WH025_Onion": 25.0,
+          "WH028_Onion": 5.0,
+          "WH029_Onion": 25.0,
+          "WH030_Onion": 500.0,
+          "WH035_Onion": 25.0,
+          "WH039_Onion": 25.0,
+          "WH042_Onion": 25.0,
+          "WH044_Onion": 75.0,
+          "WH047_Onion": 25.0,
+          "WH048_Onion": 25.0,
+          "WH050_Onion": 50.0,
+          "WH051_Onion": 361.15,
+          "WH052_Onion": 0.0,
+          "WH054_Onion": 0.0,
+          "WH055_Onion": 0.0,
+          "WH056_Onion": 0.0,
+          "WH057_Onion": 0.0,
+          "WH059_Onion": 0.0,
+          "WH063_Onion": 0.0,
+          "WH064_Onion": 0.0,
+          "WH067_Onion": 0.0,
+          "WH068_Onion": 0.0,
+          "WH069_Onion": 0.0,
+          "WH070_Onion": 0.0,
+          "WH071_Onion": 0.0,
+          "WH072_Onion": 0.0,
+          "WH074_Onion": 0.0,
+          "WH076_Onion": 0.0,
+          "WH077_Onion": 0.0,
+          "WH078_Onion": 0.0,
+          "WH079_Onion": 0.0,
+          "WH081_Onion": 0.0,
+          "WH082_Onion": 0.0,
+          "WH083_Onion": 0.0,
+          "WH085_Onion": 0.0,
+          "WH087_Onion": 0.0,
+          "WH088_Onion": 0.0,
+          "WH090_Onion": 0.0,
+          "WH091_Onion": 0.0,
+          "WH094_Onion": 0.0,
+          "WH097_Onion": 0.0,
+          "WH101_Onion": 0.0,
+          "WH102_Onion": 0.0
+        },
+        "total_allocated": 2561.15,
+        "total_required": 2561.1500000000005
+      },
+      "transport_plan": {
+        "distance_km": 155.76344127367486,
+        "transport_cost": 19946.676880903626
+      },
+      "decision": {
+        "crop": "Onion",
+        "profit_now": 157792451.50000003,
+        "profit_store": 217748358.32400003,
+        "decision": "store",
+        "current_price": 61.61,
+        "forecast_price": 92.41499999999999,
+        "storage_cost": 5224.746000000001,
+        "spoilage_loss": 18935094.180000003,
+        "transport_cost": 19946.676880903626,
+        "price_change_pct": 49.999999999999986,
+        "risk_discount": 1.0
+      },
+      "selling_time_optimization": {
+        "best_quarter": 1,
+        "max_profit": 206208461.39311913,
+        "timeline": [
+          {
+            "quarter": 1,
+            "forecast_price": 92.41499999999999,
+            "profit": 206208461.39311913,
+            "spoilage_loss": 18935094.180000003,
+            "storage_cost": 11525175.000000004
+          },
+          {
+            "quarter": 2,
+            "forecast_price": 92.41499999999999,
+            "profit": 194683286.39311913,
+            "spoilage_loss": 37870188.36000001,
+            "storage_cost": 23050350.000000007
+          },
+          {
+            "quarter": 3,
+            "forecast_price": 92.41499999999999,
+            "profit": 183158111.39311913,
+            "spoilage_loss": 56805282.54000001,
+            "storage_cost": 34575525.00000001
+          },
+          {
+            "quarter": 4,
+            "forecast_price": 92.41499999999999,
+            "profit": 171632936.3931191,
+            "spoilage_loss": 75740376.72000001,
+            "storage_cost": 46100700.000000015
+          }
+        ]
+      },
+      "forecast_metrics": {
+        "arima_metrics": {
+          "mae": 94.86943005823967,
+          "rmse": 95.56597872066578,
+          "mape": 262.34824592052433
+        },
+        "sarima_metrics": {
+          "mae": 76.59659896844818,
+          "rmse": 78.18640022013399,
+          "mape": 217.37245057882015
+        },
+        "lstm_metrics": {
+          "mae": 62.99673789978027,
+          "rmse": 64.03226810631385,
+          "mape": 177.77629394307053
+        }
+      },
+      "forecast_values": [
+        92.41499999999999,
+        92.41499999999999,
+        92.41499999999999,
+        92.41499999999999
+      ]
+    },
+    {
+      "crop": "Tomato",
+      "quantity_kg": 3011040.0,
+      "storage_plan": {
+        "warehouse_allocations": {
+          "WH003_Tomato": 25.0,
+          "WH006_Tomato": 50.0,
+          "WH009_Tomato": 25.0,
+          "WH011_Tomato": 315.0,
+          "WH012_Tomato": 40.0,
+          "WH014_Tomato": 40.0,
+          "WH015_Tomato": 40.0,
+          "WH016_Tomato": 25.0,
+          "WH020_Tomato": 25.0,
+          "WH021_Tomato": 25.0,
+          "WH024_Tomato": 110.0,
+          "WH026_Tomato": 30.0,
+          "WH028_Tomato": 5.0,
+          "WH029_Tomato": 25.0,
+          "WH031_Tomato": 500.0,
+          "WH040_Tomato": 25.0,
+          "WH042_Tomato": 25.0,
+          "WH043_Tomato": 25.0,
+          "WH045_Tomato": 375.0,
+          "WH046_Tomato": 25.0,
+          "WH049_Tomato": 220.0,
+          "WH053_Tomato": 25.0,
+          "WH054_Tomato": 25.0,
+          "WH057_Tomato": 5.0,
+          "WH058_Tomato": 10.0,
+          "WH060_Tomato": 25.0,
+          "WH063_Tomato": 10.0,
+          "WH064_Tomato": 7.0,
+          "WH066_Tomato": 10.0,
+          "WH068_Tomato": 25.0,
+          "WH069_Tomato": 25.0,
+          "WH070_Tomato": 100.0,
+          "WH071_Tomato": 25.0,
+          "WH072_Tomato": 100.0,
+          "WH074_Tomato": 644.04,
+          "WH076_Tomato": 0.0,
+          "WH079_Tomato": 0.0,
+          "WH083_Tomato": 0.0,
+          "WH086_Tomato": 0.0,
+          "WH088_Tomato": 0.0,
+          "WH089_Tomato": 0.0,
+          "WH091_Tomato": 0.0,
+          "WH093_Tomato": 0.0,
+          "WH094_Tomato": 0.0,
+          "WH096_Tomato": 0.0,
+          "WH098_Tomato": 0.0,
+          "WH099_Tomato": 0.0
+        },
+        "total_allocated": 3011.04,
+        "total_required": 3011.04
+      },
+      "transport_plan": {
+        "distance_km": 155.7408641549479,
+        "transport_cost": 23447.09858025572
+      },
+      "decision": {
+        "crop": "Tomato",
+        "profit_now": 10659081.6,
+        "profit_store": 12584656.40203861,
+        "decision": "store",
+        "current_price": 3.54,
+        "forecast_price": 4.9194645757098625,
+        "storage_cost": 6142.5216,
+        "spoilage_loss": 2221905.6924068136,
+        "transport_cost": 23447.09858025572,
+        "price_change_pct": 38.96792586751024,
+        "risk_discount": 1.0
+      },
+      "selling_time_optimization": {
+        "best_quarter": 0,
+        "max_profit": 10659081.6,
+        "timeline": [
+          {
+            "quarter": 1,
+            "forecast_price": 4.9194645757098625,
+            "profit": -982328.1749416456,
+            "spoilage_loss": 2221905.6924068136,
+            "storage_cost": 13549680.0
+          },
+          {
+            "quarter": 2,
+            "forecast_price": 4.424520582468583,
+            "profit": -15798759.912139485,
+            "spoilage_loss": 3996722.53639086,
+            "storage_cost": 27099360.0
+          },
+          {
+            "quarter": 3,
+            "forecast_price": 4.668671601089234,
+            "profit": -28723563.701498087,
+            "spoilage_loss": 6325900.621984677,
+            "storage_cost": 40649040.0
+          },
+          {
+            "quarter": 4,
+            "forecast_price": 4.199750773918717,
+            "profit": -43473392.16382507,
+            "spoilage_loss": 7587370.542180129,
+            "storage_cost": 54198720.0
+          }
+        ]
+      },
+      "forecast_metrics": {
+        "arima_metrics": {
+          "mae": 1.5896297801079347,
+          "rmse": 1.6723281589093886,
+          "mape": 32.03397054140294
+        },
+        "sarima_metrics": {
+          "mae": 1.385142379028707,
+          "rmse": 1.734950064890484,
+          "mape": 22.04948489435855
+        },
+        "lstm_metrics": {
+          "mae": 1.1824422931671144,
+          "rmse": 1.5153350806772907,
+          "mape": 29.613332051319386
+        }
+      },
+      "forecast_values": [
+        4.9194645757098625,
+        4.424520582468583,
+        4.668671601089234,
+        4.199750773918717
+      ]
+    },
+    {
+      "crop": "Rice",
+      "quantity_kg": 691320.0,
+      "storage_plan": {
+        "warehouse_allocations": {
+          "WH001_Rice": 0.0,
+          "WH006_Rice": 0.0,
+          "WH014_Rice": 0.0,
+          "WH016_Rice": 0.0,
+          "WH017_Rice": 0.0,
+          "WH018_Rice": 0.0,
+          "WH019_Rice": 691.32,
+          "WH020_Rice": 0.0,
+          "WH021_Rice": 0.0,
+          "WH022_Rice": 0.0,
+          "WH023_Rice": 0.0,
+          "WH024_Rice": 0.0,
+          "WH026_Rice": 0.0,
+          "WH028_Rice": 0.0,
+          "WH029_Rice": 0.0,
+          "WH030_Rice": 0.0,
+          "WH032_Rice": 0.0,
+          "WH037_Rice": 0.0,
+          "WH039_Rice": 0.0,
+          "WH043_Rice": 0.0,
+          "WH045_Rice": 0.0,
+          "WH048_Rice": 0.0,
+          "WH049_Rice": 0.0,
+          "WH052_Rice": 0.0,
+          "WH053_Rice": 0.0,
+          "WH054_Rice": 0.0,
+          "WH056_Rice": 0.0,
+          "WH057_Rice": 0.0,
+          "WH058_Rice": 0.0,
+          "WH060_Rice": 0.0,
+          "WH064_Rice": 0.0,
+          "WH065_Rice": 0.0,
+          "WH067_Rice": 0.0,
+          "WH069_Rice": 0.0,
+          "WH070_Rice": 0.0,
+          "WH073_Rice": 0.0,
+          "WH075_Rice": 0.0,
+          "WH076_Rice": 0.0,
+          "WH078_Rice": 0.0,
+          "WH080_Rice": 0.0,
+          "WH081_Rice": 0.0,
+          "WH086_Rice": 0.0,
+          "WH087_Rice": 0.0,
+          "WH088_Rice": 0.0,
+          "WH090_Rice": 0.0,
+          "WH094_Rice": 0.0,
+          "WH095_Rice": 0.0,
+          "WH097_Rice": 0.0,
+          "WH098_Rice": 0.0,
+          "WH100_Rice": 0.0,
+          "WH102_Rice": 0.0
+        },
+        "total_allocated": 691.32,
+        "total_required": 691.32
+      },
+      "transport_plan": {
+        "distance_km": 161.44157669535383,
+        "transport_cost": 5580.389540051601
+      },
+      "decision": {
+        "crop": "Rice",
+        "profit_now": 24806001.85,
+        "profit_store": 25959938.68646422,
+        "decision": "store",
+        "current_price": 35.882083333333334,
+        "forecast_price": 37.933184189964535,
+        "storage_cost": 1790.5187999999998,
+        "spoilage_loss": 262239.68894206284,
+        "transport_cost": 5580.389540051601,
+        "price_change_pct": 5.7162256649847105,
+        "risk_discount": 1.0
+      },
+      "selling_time_optimization": {
+        "best_quarter": 0,
+        "max_profit": 24806001.85,
+        "timeline": [
+          {
+            "quarter": 1,
+            "forecast_price": 37.933184189964535,
+            "profit": 22845208.815724168,
+            "spoilage_loss": 262239.68894206284,
+            "storage_cost": 3110940.0
+          },
+          {
+            "quarter": 2,
+            "forecast_price": 40.33570470306831,
+            "profit": 21378570.192031883,
+            "spoilage_loss": 557697.5875065037,
+            "storage_cost": 6221880.0
+          },
+          {
+            "quarter": 3,
+            "forecast_price": 43.125256521451945,
+            "profit": 20176818.425486006,
+            "spoilage_loss": 894400.5701523047,
+            "storage_cost": 9332820.0
+          },
+          {
+            "quarter": 4,
+            "forecast_price": 47.1862569967532,
+            "profit": 19845254.76558542,
+            "spoilage_loss": 1304832.127479817,
+            "storage_cost": 12443760.0
+          }
+        ]
+      },
+      "forecast_metrics": {
+        "arima_metrics": {
+          "mae": 7.188328131329327,
+          "rmse": 7.200544623202478,
+          "mape": 22.095290913751363
+        },
+        "sarima_metrics": {
+          "mae": 6.874909117003454,
+          "rmse": 6.888075279779392,
+          "mape": 21.158864778885643
+        },
+        "lstm_metrics": {
+          "mae": 0.9537275102403422,
+          "rmse": 1.2097409144279143,
+          "mape": 2.805134301645201
+        }
+      },
+      "forecast_values": [
+        37.933184189964535,
+        40.33570470306831,
+        43.125256521451945,
+        47.1862569967532
+      ]
+    }
+  ],
+  "generated_from": "pipeline",
+  "source_rows": 3,
+  "farmer_dataset_path": "C:\\Users\\yoges\\agrii\\farmer_crop_dataset (1).csv",
+  "warehouse_dataset_path": "C:\\Users\\yoges\\agrii\\tamilnadu_full_warehouse_dataset (1).csv"
+}

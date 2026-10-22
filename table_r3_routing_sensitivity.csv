@@ -1,0 +1,8 @@
+scenario_type,scenario_multiplier,mean_transport_cost_inr,mean_quantity_q,mean_unserved_q,infeasible_scenarios
+available_quantity_multiplier,0.5,9.49997270871562,0.5,0.0,0
+available_quantity_multiplier,1.0,18.99994541743124,1.0,0.0,0
+available_quantity_multiplier,1.5,28.499918126146856,1.5,0.0,0
+transport_cost_multiplier,0.5,9.49997270871562,1.0,0.0,0
+transport_cost_multiplier,1.0,18.99994541743124,1.0,0.0,0
+transport_cost_multiplier,1.5,28.499918126146856,1.0,0.0,0
+transport_cost_multiplier,2.0,37.99989083486248,1.0,0.0,0

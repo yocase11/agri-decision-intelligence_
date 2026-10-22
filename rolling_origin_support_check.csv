@@ -1,0 +1,2 @@
+supported,validation_windows_configured,max_feasible_windows_observed,support_limit_reason
+False,3,3,The data support only the current three-window setup; no additional real rolling-origin checks are available without changing the evaluation design.

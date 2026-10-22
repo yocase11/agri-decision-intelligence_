@@ -1,0 +1,4 @@
+crop,scenarios,mean_available_q,mean_allocated_q,mean_unallocated_q,mean_cost_inr,mean_storage_cost_inr,mean_transport_cost_inr,max_constraint_violations
+Onion,12,1.0,1.0,0.0,24.257541751380305,1.2862500000000001,22.971291751380306,0
+Rice,12,1.0,1.0,0.0,24.257541751380305,1.2862500000000001,22.971291751380306,0
+Tomato,12,1.0,1.0,0.0,13.052252749533539,1.995,11.05725274953354,0

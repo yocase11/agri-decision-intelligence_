@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Forecasting Metrics — Agri Forecast</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .hero {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 50px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        .metric-card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            background: white;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        .metric-card .card-body {
+            padding: 2rem;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #28a745;
+            margin: 15px 0;
+        }
+        .metric-label {
+            font-size: 1rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .metric-description {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+        .section-title {
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+        .section-title h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #28a745;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            border-radius: 2px;
+        }
+        .info-box {
+            background: white;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .info-box h5 {
+            color: #28a745;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .info-box p {
+            margin: 0.5rem 0;
+            color: #666;
+            line-height: 1.6;
+        }
+        .forecast-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .forecast-table table {
+            margin-bottom: 0;
+        }
+        .forecast-table thead th {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .forecast-table tbody td {
+            padding: 15px 20px;
+            vertical-align: middle;
+            text-align: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .forecast-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .numeric-value {
+            font-weight: 600;
+            color: #28a745;
+            font-size: 1.1rem;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        .performance-rating {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        .rating-excellent {
+            background: #d4edda;
+            color: #155724;
+        }
+        .rating-good {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        .rating-fair {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .rating-poor {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .interpretation-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .value-badge {
+            display: inline-block;
+            background: #e9f7ef;
+            color: #28a745;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            margin: 0 3px;
+        }
+        .forecast-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid #28a745;
+        }
+        .forecast-card .period {
+            font-weight: 600;
+            color: #28a745;
+            font-size: 1.1rem;
+        }
+        .forecast-card .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin: 10px 0;
+        }
+        footer {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        .badge-model {
+            background: #e9f7ef;
+            color: #28a745;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 5px 2px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <h1><i class="fas fa-chart-bar me-3"></i>Price Forecasting Metrics</h1>
+            <p class="mb-0">Real-time performance metrics for agricultural price prediction models</p>
+        </div>
+    </header>
+
+    <main class="container">
+        {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show">
+                <strong>Error:</strong> {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endif %}
+
+        {% if result %}
+            <!-- Summary Section -->
+            <section class="section-title">
+                <h2 class="mb-4">Forecast Summary</h2>
+            </section>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-6">
+                    <div class="info-box">
+                        <h5><i class="fas fa-leaf me-2" style="color: #28a745;"></i>Crop & Location</h5>
+                        <p><strong>Crop:</strong> {{ selected_crop }}</p>
+                        <p><strong>Location:</strong> {{ farmer_location }}</p>
+                        <p><strong>Quantity:</strong> {{ quantity_kg }} kg</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-box">
+                        <h5><i class="fas fa-brain me-2" style="color: #28a745;"></i>Forecast Model</h5>
+                        <p><strong>Selected Model:</strong> <span class="badge-model">{{ result.model }}</span></p>
+                        <p><strong>Generated:</strong> {{ generated_at }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Metrics Section -->
+            <section class="section-title">
+                <h2 class="mb-4">Price Forecasting Metrics</h2>
+            </section>
+
+            <div class="row g-4 mb-5">
+                <!-- RMSE -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="metric-card card">
+                        <div class="card-body">
+                            <div class="metric-label">RMSE</div>
+                            <div class="metric-label" style="font-size: 0.8rem; color: #999;">Root Mean Squared Error</div>
+                            <div class="metric-value">
+                                {{ result.forecast_metrics.get('RMSE') | round(2) if result.forecast_metrics.get('RMSE') is not none else 'N/A' }}
+                            </div>
+                            <div class="metric-description">
+                                Average prediction error in price units. Lower values indicate better accuracy.
+                            </div>
+                            <div class="interpretation-box">
+                                {% set rmse_val = result.forecast_metrics.get('RMSE') | float if result.forecast_metrics.get('RMSE') is not none else 0 %}
+                                {% if rmse_val < 5 %}
+                                    <span class="performance-rating rating-excellent"><i class="fas fa-check-circle"></i> Excellent</span>
+                                    <p style="margin-top: 10px; margin-bottom: 0;">Very low error - predictions are highly accurate.</p>
+                                {% elif rmse_val < 10 %}
+                                    <span class="performance-rating rating-good"><i class="fas fa-thumbs-up"></i> Good</span>
+                                    <p style="margin-top: 10px; margin-bottom: 0;">Acceptable error range for forecasting.</p>
+                                {% elif rmse_val < 20 %}
+                                    <span class="performance-rating rating-fair"><i class="fas fa-info-circle"></i> Fair</span>
+                                    <p style="margin-top: 10px; margin-bottom: 0;">Moderate error - use with caution for decisions.</p>
+                                {% else %}
+                                    <span class="performance-rating rating-poor"><i class="fas fa-times-circle"></i> Poor</span>
+                                    <p style="margin-top: 10px; margin-bottom: 0;">High error - consider alternative forecasting models.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAE -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="metric-card card">
+                        <div class="card-body">
+                            <div class="metric-label">MAE</div>
+                            <div class="metric-label" style="font-size: 0.8rem; color: #999;">Mean Absolute Error</div>
+                            <div class="metric-value">
+                                {{ result.forecast_metrics.get('MAE') | round(2) if result.forecast_metrics.get('MAE') is not none else 'N/A' }}
+                            </div>
+                            <div class="metric-description">
+                                Average absolute difference between predicted and actual prices.
+                            </div>
+                            <div class="interpretation-box">
+                                {% set mae_val = result.forecast_metrics.get('MAE') | float if result.forecast_metrics.get('MAE') is not none else 0 %}
+                                <p style="margin-bottom: 0;"><strong>Interpretation:</strong> On average, the forecast is off by approximately <span class="value-badge">₹{{ mae_val | round(2) }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAPE -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="metric-card card">
+                        <div class="card-body">
+                            <div class="metric-label">MAPE</div>
+                            <div class="metric-label" style="font-size: 0.8rem; color: #999;">Mean Absolute % Error</div>
+                            <div class="metric-value">
+                                {{ result.forecast_metrics.get('MAPE') | round(2) if result.forecast_metrics.get('MAPE') is not none else 'N/A' }}
+                                <span style="font-size: 1rem;">%</span>
+                            </div>
+                            <div class="metric-description">
+                                Percentage-based error metric for relative accuracy assessment.
+                            </div>
+                            <div class="interpretation-box">
+                                {% set mape_val = result.forecast_metrics.get('MAPE') | float if result.forecast_metrics.get('MAPE') is not none else 0 %}
+                                {% if mape_val < 5 %}
+                                    <span class="performance-rating rating-excellent"><i class="fas fa-check-circle"></i> Excellent</span>
+                                {% elif mape_val < 10 %}
+                                    <span class="performance-rating rating-good"><i class="fas fa-thumbs-up"></i> Good</span>
+                                {% elif mape_val < 20 %}
+                                    <span class="performance-rating rating-fair"><i class="fas fa-info-circle"></i> Fair</span>
+                                {% else %}
+                                    <span class="performance-rating rating-poor"><i class="fas fa-times-circle"></i> Poor</span>
+                                {% endif %}
+                                <p style="margin-top: 10px; margin-bottom: 0;">Error represents approximately <span class="value-badge">{{ mape_val | round(1) }}%</span> of actual prices.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- R² Score -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="metric-card card">
+                        <div class="card-body">
+                            <div class="metric-label">R² Score</div>
+                            <div class="metric-label" style="font-size: 0.8rem; color: #999;">Coefficient of Determination</div>
+                            <div class="metric-value">
+                                {{ result.forecast_metrics.get('R2') | round(4) if result.forecast_metrics.get('R2') is not none else 'N/A' }}
+                            </div>
+                            <div class="metric-description">
+                                Percentage of price variance explained by the model.
+                            </div>
+                            <div class="interpretation-box">
+                                {% set r2_val = result.forecast_metrics.get('R2') | float if result.forecast_metrics.get('R2') is not none else 0 %}
+                                {% if r2_val > 0.9 %}
+                                    <span class="performance-rating rating-excellent"><i class="fas fa-check-circle"></i> Excellent</span>
+                                {% elif r2_val > 0.7 %}
+                                    <span class="performance-rating rating-good"><i class="fas fa-thumbs-up"></i> Good</span>
+                                {% elif r2_val > 0.5 %}
+                                    <span class="performance-rating rating-fair"><i class="fas fa-info-circle"></i> Fair</span>
+                                {% else %}
+                                    <span class="performance-rating rating-poor"><i class="fas fa-times-circle"></i> Poor</span>
+                                {% endif %}
+                                <p style="margin-top: 10px; margin-bottom: 0;">Model explains <span class="value-badge">{{ (r2_val * 100) | round(1) }}%</span> of price variations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <section class="section-title">
+                <h2 class="mb-4">Visualizations</h2>
+            </section>
+
+            <div class="row g-4 mb-5">
+                <div class="col-lg-6">
+                    <div class="chart-container">
+                        <canvas id="metricChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="chart-container">
+                        <canvas id="modelComparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Comparison Table -->
+            <section class="section-title">
+                <h2 class="mb-4">Model Comparison</h2>
+            </section>
+
+            <div class="forecast-table mb-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>RMSE</th>
+                            <th>MAE</th>
+                            <th>MAPE (%)</th>
+                            <th>R² Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for algo, metrics in result.all_model_metrics.items() %}
+                            <tr>
+                                <td style="text-align: left; font-weight: 600;">
+                                    {% if algo == result.model %}
+                                        <i class="fas fa-star" style="color: #ffc107;"></i> {{ algo }}
+                                    {% else %}
+                                        {{ algo }}
+                                    {% endif %}
+                                </td>
+                                <td class="numeric-value">{{ metrics.get('RMSE') | round(2) if metrics.get('RMSE') is not none else 'N/A' }}</td>
+                                <td class="numeric-value">{{ metrics.get('MAE') | round(2) if metrics.get('MAE') is not none else 'N/A' }}</td>
+                                <td class="numeric-value">{{ metrics.get('MAPE') | round(2) if metrics.get('MAPE') is not none else 'N/A' }}%</td>
+                                <td class="numeric-value">{{ metrics.get('R2') | round(4) if metrics.get('R2') is not none else 'N/A' }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Forecast Output -->
+            <section class="section-title">
+                <h2 class="mb-4">Price Forecast</h2>
+            </section>
+
+            <div class="row g-3 mb-5">
+                {% for price in result.forecasts %}
+                    <div class="col-lg-3 col-md-6">
+                        <div class="forecast-card">
+                            <div class="period"><i class="fas fa-calendar-alt"></i> Period {{ loop.index }}</div>
+                            <div class="price">₹{{ price | round(2) }}</div>
+                            <div style="font-size: 0.9rem; color: #666;">
+                                {% if loop.index == 1 %}
+                                    <i class="fas fa-info-circle"></i> Immediate forecast
+                                {% elif loop.index == 2 %}
+                                    <i class="fas fa-forward"></i> Short term
+                                {% elif loop.index == 3 %}
+                                    <i class="fas fa-forward"></i> Medium term
+                                {% else %}
+                                    <i class="fas fa-forward"></i> Extended forecast
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Insights -->
+            <section class="section-title">
+                <h2 class="mb-4">Key Insights & Recommendations</h2>
+            </section>
+
+            <div class="info-box mb-5">
+                <h5><i class="fas fa-lightbulb me-2" style="color: #ffc107;"></i>Model Reliability</h5>
+                {% set r2_val = result.forecast_metrics.get('R2') | float if result.forecast_metrics.get('R2') is not none else 0 %}
+                {% if r2_val > 0.8 %}
+                    <p>✓ High confidence in forecasted prices. This model captures market patterns well and is suitable for decision-making.</p>
+                {% elif r2_val > 0.6 %}
+                    <p>✓ Good confidence in forecasts. Consider validating predictions with market observations before finalizing decisions.</p>
+                {% else %}
+                    <p>⚠ Moderate confidence in forecasts. Use these predictions as guidance alongside other market indicators and expert judgment.</p>
+                {% endif %}
+            </div>
+
+            <div class="info-box">
+                <h5><i class="fas fa-chart-line me-2" style="color: #28a745;"></i>Forecast Trend</h5>
+                {% set first = result.forecasts[0] %}
+                {% set last = result.forecasts[-1] %}
+                {% if last > first %}
+                    <p><i class="fas fa-arrow-up" style="color: #28a745;"></i> <strong>Upward Trend:</strong> Prices are expected to increase from ₹{{ first | round(2) }} to ₹{{ last | round(2) }}. Consider waiting to sell for better returns.</p>
+                {% elif last < first %}
+                    <p><i class="fas fa-arrow-down" style="color: #dc3545;"></i> <strong>Downward Trend:</strong> Prices are expected to decrease from ₹{{ first | round(2) }} to ₹{{ last | round(2) }}. Consider selling sooner to avoid price decline.</p>
+                {% else %}
+                    <p><i class="fas fa-minus" style="color: #ffc107;"></i> <strong>Stable Trend:</strong> Prices are expected to remain relatively stable around ₹{{ first | round(2) }}.</p>
+                {% endif %}
+            </div>
+
+        {% else %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                No performance result available. Run a decision request first to generate metrics.
+            </div>
+        {% endif %}
+
+        <footer>
+            <p>Agricultural Forecasting & Decision Support System</p>
+            <p>Generated on: {{ generated_at }}</p>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Metric Comparison Chart
+        {% if result %}
+        const metricCtx = document.getElementById('metricChart');
+        if (metricCtx) {
+            new Chart(metricCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['RMSE', 'MAE', 'MAPE', 'R² Score'],
+                    datasets: [{
+                        label: '{{ result.model }}',
+                        data: [
+                            {{ result.forecast_metrics.get('RMSE', 0) | round(2) }},
+                            {{ result.forecast_metrics.get('MAE', 0) | round(2) }},
+                            {{ result.forecast_metrics.get('MAPE', 0) | round(2) }},
+                            {{ (result.forecast_metrics.get('R2', 0) * 100) | round(2) }}
+                        ],
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                        borderWidth: 2,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#28a745',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Metric Performance Visualization'
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        // Model Comparison Chart
+        const comparisonCtx = document.getElementById('modelComparisonChart');
+        if (comparisonCtx) {
+            const models = {{ result.all_model_metrics.keys() | list | tojson }};
+            const rmseValues = [
+                {% for algo, metrics in result.all_model_metrics.items() %}
+                    {{ metrics.get('RMSE', 0) | round(2) }}{{ "," if not loop.last else "" }}
+                {% endfor %}
+            ];
+            const colors = [
+                {% for algo in result.all_model_metrics.keys() %}
+                    '{{ "#28a745" if algo == result.model else "#e9f7ef" }}'{{ "," if not loop.last else "" }}
+                {% endfor %}
+            ];
+            
+            new Chart(comparisonCtx, {
+                type: 'bar',
+                data: {
+                    labels: models,
+                    datasets: [{
+                        label: 'RMSE (Lower is better)',
+                        data: rmseValues,
+                        backgroundColor: colors,
+                        borderColor: '#28a745',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Model Comparison - RMSE'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        {% endif %}
+    </script>
+</body>
+</html>

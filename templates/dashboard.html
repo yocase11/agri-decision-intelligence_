@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Decision Intelligence Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #28a745;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            background: white;
+            min-height: calc(100vh - 76px);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 250px;
+            left: 0;
+            top: 76px;
+            z-index: 1000;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            min-height: calc(100vh - 76px);
+        }
+
+        .sidebar .nav-link {
+            color: #666;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 5px 10px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .stat-card.success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+
+        .stat-card.warning {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        }
+
+        .stat-card.danger {
+            background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+        }
+
+        .btn-custom {
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .decision-result {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #28a745;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-seedling me-2"></i>
+                <span class="fw-bold">Agri Decision Intelligence</span>
+            </a>
+
+            <div class="d-flex align-items-center">
+                <span class="text-white me-3">
+                    <i class="fas fa-user me-1"></i>Welcome, {{ user }}
+                </span>
+                <a href="{{ url_for('logout') }}" class="btn btn-outline-light btn-sm">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <nav class="nav flex-column py-3">
+            <a class="nav-link active" href="#dashboard" onclick="showSection('dashboard')">
+                <i class="fas fa-tachometer-alt"></i>Dashboard
+            </a>
+            <a class="nav-link" href="#forecast" onclick="showSection('forecast')">
+                <i class="fas fa-chart-line"></i>Price Forecast
+            </a>
+            <a class="nav-link" href="#decision" onclick="showSection('decision')">
+                <i class="fas fa-brain"></i>Decision Support
+            </a>
+            <a class="nav-link" href="#history" onclick="showSection('history')">
+                <i class="fas fa-history"></i>Decision History
+            </a>
+            <a class="nav-link" href="#analytics" onclick="showSection('analytics')">
+                <i class="fas fa-chart-bar"></i>Analytics
+            </a>
+            <a class="nav-link" href="/performance" target="_blank">
+                <i class="fas fa-file-alt"></i>Performance Metrics
+            </a>
+            <a class="nav-link" href="/chat" target="_blank">
+                <i class="fas fa-robot"></i>AgriChat Assistant
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Section -->
+        <div id="dashboard-section" class="content-section">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-tachometer-alt me-2"></i>Dashboard Overview</h2>
+                <button class="btn btn-primary btn-custom" onclick="refreshData()">
+                    <i class="fas fa-sync-alt me-1"></i>Refresh Data
+                </button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3 mb-3">
+                    <div class="card stat-card success">
+                        <div class="card-body text-center">
+                            <i class="fas fa-seedling fa-2x mb-2"></i>
+                            <h4>Onion</h4>
+                            <h3 id="onion-price">-</h3>
+                            <small>₹/kg</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-leaf fa-2x mb-2"></i>
+                            <h4>Tomato</h4>
+                            <h3 id="tomato-price">-</h3>
+                            <small>₹/kg</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card stat-card warning">
+                        <div class="card-body text-center">
+                            <i class="fas fa-wheat-awn fa-2x mb-2"></i>
+                            <h4>Rice</h4>
+                            <h3 id="rice-price">-</h3>
+                            <small>₹/kg</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card stat-card danger">
+                        <div class="card-body text-center">
+                            <i class="fas fa-chart-line fa-2x mb-2"></i>
+                            <h4>Decisions</h4>
+                            <h3 id="total-decisions">0</h3>
+                            <small>This session</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Trends Chart -->
+            <div class="chart-container">
+                <h4><i class="fas fa-chart-area me-2"></i>Price Trends</h4>
+                <div id="price-chart" style="height: 400px;"></div>
+            </div>
+        </div>
+
+        <!-- Forecast Section -->
+        <div id="forecast-section" class="content-section" style="display: none;">
+            <h2><i class="fas fa-chart-line me-2"></i>Price Forecasting</h2>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Select Crop</h5>
+                            <select class="form-select mb-3" id="forecast-crop">
+                                <option value="Onion">Onion</option>
+                                <option value="Tomato">Tomato</option>
+                                <option value="Rice">Rice</option>
+                            </select>
+                            <button class="btn btn-success btn-custom w-100" onclick="loadForecast()">
+                                <i class="fas fa-search me-1"></i>Load Forecast
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="chart-container">
+                        <h4 id="forecast-title">Forecast Chart</h4>
+                        <div id="forecast-chart" style="height: 400px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decision Support Section -->
+        <div id="decision-section" class="content-section" style="display: none;">
+            <h2><i class="fas fa-brain me-2"></i>Decision Support System</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5><i class="fas fa-calculator me-2"></i>Decision Parameters</h5>
+                            <form id="decision-form">
+                                <div class="mb-3">
+                                    <label class="form-label">Crop Type</label>
+                                    <select class="form-select" id="decision-crop" required>
+                                        <option value="Onion">Onion</option>
+                                        <option value="Tomato">Tomato</option>
+                                        <option value="Rice">Rice</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Quantity (kg)</label>
+                                    <input type="number" class="form-control" id="quantity" value="1000" min="1" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Latitude</label>
+                                            <input type="number" class="form-control" id="lat" value="11.0" step="0.0001" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Longitude</label>
+                                            <input type="number" class="form-control" id="lon" value="77.0" step="0.0001" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-custom w-100">
+                                    <i class="fas fa-cog me-1"></i>Get Decision
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div id="decision-result" class="decision-result" style="display: none;">
+                        <h4><i class="fas fa-lightbulb me-2"></i>Decision Result</h4>
+                        <div id="decision-content"></div>
+                    </div>
+
+                    <div class="loading" id="decision-loading">
+                        <div class="spinner"></div>
+                        <p class="mt-2">Analyzing decision...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div id="history-section" class="content-section" style="display: none;">
+            <h2><i class="fas fa-history me-2"></i>Decision History</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div id="history-table"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div id="analytics-section" class="content-section" style="display: none;">
+            <h2><i class="fas fa-chart-bar me-2"></i>Analytics</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <h4>Decision Distribution</h4>
+                        <div id="decision-pie-chart" style="height: 300px;"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <h4>Profit Analysis</h4>
+                        <div id="profit-chart" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let priceData = {};
+        let currentSection = 'dashboard';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPriceData();
+            loadHistory();
+            showSection('dashboard');
+        });
+
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show selected section
+            document.getElementById(sectionId + '-section').style.display = 'block';
+
+            // Update active nav link
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[href="#${sectionId}"]`).classList.add('active');
+
+            currentSection = sectionId;
+        }
+
+        // Load price data
+        async function loadPriceData() {
+            try {
+                const response = await fetch('/api/price-data');
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error('Error loading price data:', data.error);
+                    return;
+                }
+
+                priceData = data;
+                updatePriceCards();
+                updatePriceChart();
+            } catch (error) {
+                console.error('Error loading price data:', error);
+            }
+        }
+
+        // Update price cards
+        function updatePriceCards() {
+            const crops = ['Onion', 'Tomato', 'Rice'];
+            crops.forEach(crop => {
+                if (priceData[crop] && priceData[crop].length > 0) {
+                    const latestPrice = priceData[crop][priceData[crop].length - 1][crop];
+                    document.getElementById(crop.toLowerCase() + '-price').textContent =
+                        latestPrice ? latestPrice.toFixed(2) : '-';
+                }
+            });
+        }
+
+        // Update price chart
+        function updatePriceChart() {
+            const traces = [];
+            const crops = ['Onion', 'Tomato', 'Rice'];
+
+            crops.forEach(crop => {
+                if (priceData[crop]) {
+                    const dates = priceData[crop].map(d => d.quarter_date);
+                    const prices = priceData[crop].map(d => d[crop]);
+
+                    traces.push({
+                        x: dates,
+                        y: prices,
+                        mode: 'lines+markers',
+                        name: crop,
+                        line: {width: 3}
+                    });
+                }
+            });
+
+            const layout = {
+                title: 'Crop Price Trends',
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (₹/kg)'},
+                margin: {l: 50, r: 50, t: 50, b: 50}
+            };
+
+            Plotly.newPlot('price-chart', traces, layout);
+        }
+
+        // Load forecast
+        async function loadForecast() {
+            const crop = document.getElementById('forecast-crop').value;
+            document.getElementById('forecast-title').textContent = `${crop} Price Forecast`;
+
+            try {
+                const response = await fetch(`/api/forecast/${crop}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    alert('Error loading forecast: ' + data.error);
+                    return;
+                }
+
+                // Create forecast chart
+                const trace1 = {
+                    x: Array.from({length: data.forecast.length}, (_, i) => `Q${i+1}`),
+                    y: data.forecast,
+                    mode: 'lines+markers',
+                    name: 'Forecast',
+                    line: {color: '#28a745', width: 3}
+                };
+
+                const layout = {
+                    title: `${crop} Price Forecast`,
+                    xaxis: {title: 'Quarters Ahead'},
+                    yaxis: {title: 'Price (₹/kg)'},
+                    margin: {l: 50, r: 50, t: 50, b: 50}
+                };
+
+                Plotly.newPlot('forecast-chart', [trace1], layout);
+            } catch (error) {
+                console.error('Error loading forecast:', error);
+                alert('Error loading forecast data');
+            }
+        }
+
+        // Decision form submission
+        document.getElementById('decision-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const decisionResult = document.getElementById('decision-result');
+            const decisionLoading = document.getElementById('decision-loading');
+
+            decisionResult.style.display = 'none';
+            decisionLoading.style.display = 'block';
+
+            const formData = {
+                crop: document.getElementById('decision-crop').value,
+                quantity_kg: parseFloat(document.getElementById('quantity').value),
+                lat: parseFloat(document.getElementById('lat').value),
+                lon: parseFloat(document.getElementById('lon').value)
+            };
+
+            try {
+                const response = await fetch('/api/decide', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.error) {
+                    alert('Error: ' + result.error);
+                    return;
+                }
+
+                displayDecisionResult(result);
+                updateDecisionCount();
+                loadHistory();
+
+            } catch (error) {
+                console.error('Error making decision:', error);
+                alert('Error processing decision');
+            } finally {
+                decisionLoading.style.display = 'none';
+            }
+        });
+
+        // Display decision result
+        function displayDecisionResult(result) {
+            const content = document.getElementById('decision-content');
+            const decision = result.decision || 'unknown';
+
+            let decisionIcon = 'fas fa-question-circle';
+            let decisionColor = 'text-warning';
+
+            if (decision === 'sell') {
+                decisionIcon = 'fas fa-hand-holding-usd';
+                decisionColor = 'text-success';
+            } else if (decision === 'store') {
+                decisionIcon = 'fas fa-warehouse';
+                decisionColor = 'text-info';
+            }
+
+            content.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="${decisionColor}"><i class="${decisionIcon} me-2"></i>Recommended: ${decision.toUpperCase()}</h5>
+                        <p><strong>Crop:</strong> ${result.crop}</p>
+                        <p><strong>Quantity:</strong> ${result.quantity_kg} kg</p>
+                        <p><strong>Current Price:</strong> ₹${result.current_price?.toFixed(2) || 'N/A'}</p>
+                        <p><strong>Forecast Price:</strong> ₹${result.forecast_price?.toFixed(2) || 'N/A'}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Profit Analysis</h6>
+                        <p><strong>Sell Now:</strong> ₹${result.profit_now?.toFixed(2) || 'N/A'}</p>
+                        <p><strong>Store & Sell:</strong> ₹${result.profit_store?.toFixed(2) || 'N/A'}</p>
+                        <p><strong>Storage Cost:</strong> ₹${result.storage_cost?.toFixed(2) || 'N/A'}</p>
+                        <p><strong>Transport Cost:</strong> ₹${result.transport_cost?.toFixed(2) || 'N/A'}</p>
+                    </div>
+                </div>
+                ${result.recommended_warehouse ? `
+                <div class="mt-3">
+                    <h6>Recommended Warehouse</h6>
+                    <p><strong>Location:</strong> ${result.recommended_warehouse.name}</p>
+                    <p><strong>Distance:</strong> ${result.distance_km?.toFixed(2) || 'N/A'} km</p>
+                    <p><strong>Travel Time:</strong> ${result.travel_time_min?.toFixed(0) || 'N/A'} min</p>
+                </div>
+                ` : ''}
+            `;
+
+            document.getElementById('decision-result').style.display = 'block';
+        }
+
+        // Load history
+        async function loadHistory() {
+            try {
+                const response = await fetch('/api/history');
+                const history = await response.json();
+
+                const tableContainer = document.getElementById('history-table');
+                if (history.length === 0) {
+                    tableContainer.innerHTML = '<p class="text-muted">No decision history yet.</p>';
+                    return;
+                }
+
+                let tableHTML = `
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Crop</th>
+                                    <th>Quantity</th>
+                                    <th>Decision</th>
+                                    <th>Profit Now</th>
+                                    <th>Profit Store</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                history.forEach(item => {
+                    tableHTML += `
+                        <tr>
+                            <td>${new Date(item.timestamp).toLocaleString()}</td>
+                            <td>${item.crop}</td>
+                            <td>${item.quantity_kg} kg</td>
+                            <td><span class="badge bg-${item.decision === 'sell' ? 'success' : 'info'}">${item.decision}</span></td>
+                            <td>₹${item.profit_now?.toFixed(2) || 'N/A'}</td>
+                            <td>₹${item.profit_store?.toFixed(2) || 'N/A'}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHTML += '</tbody></table></div>';
+                tableContainer.innerHTML = tableHTML;
+
+                updateAnalytics(history);
+            } catch (error) {
+                console.error('Error loading history:', error);
+            }
+        }
+
+        // Update decision count
+        function updateDecisionCount() {
+            const count = parseInt(document.getElementById('total-decisions').textContent) + 1;
+            document.getElementById('total-decisions').textContent = count;
+        }
+
+        // Update analytics
+        function updateAnalytics(history) {
+            // Decision distribution pie chart
+            const decisions = {};
+            history.forEach(item => {
+                decisions[item.decision] = (decisions[item.decision] || 0) + 1;
+            });
+
+            const pieData = [{
+                labels: Object.keys(decisions),
+                values: Object.values(decisions),
+                type: 'pie',
+                marker: {
+                    colors: ['#28a745', '#17a2b8', '#ffc107', '#dc3545']
+                }
+            }];
+
+            const pieLayout = {
+                title: 'Decision Distribution',
+                margin: {l: 50, r: 50, t: 50, b: 50}
+            };
+
+            Plotly.newPlot('decision-pie-chart', pieData, pieLayout);
+
+            // Profit analysis
+            const profits = history.map(item => ({
+                x: new Date(item.timestamp).toLocaleDateString(),
+                y: item.profit_now || 0,
+                name: 'Sell Now'
+            }));
+
+            const profitTraces = [{
+                x: profits.map(p => p.x),
+                y: profits.map(p => p.y),
+                mode: 'lines+markers',
+                name: 'Profit from Selling Now',
+                line: {color: '#28a745'}
+            }];
+
+            const profitLayout = {
+                title: 'Profit Analysis Over Time',
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Profit (₹)'},
+                margin: {l: 50, r: 50, t: 50, b: 50}
+            };
+
+            Plotly.newPlot('profit-chart', profitTraces, profitLayout);
+        }
+
+        // Refresh data
+        function refreshData() {
+            loadPriceData();
+            loadHistory();
+        }
+    </script>
+</body>
+</html>

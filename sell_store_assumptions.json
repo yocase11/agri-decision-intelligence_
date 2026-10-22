@@ -1,0 +1,28 @@
+{
+  "scenario_quantity_quintal": 1.0,
+  "transport_cost_inr": 0.0,
+  "storage_rate_inr_per_kg_per_month": {
+    "Rice": 0.3,
+    "Onion": 0.55,
+    "Tomato": 0.6
+  },
+  "spoilage_rate_per_holding_decision": {
+    "Rice": 0.01,
+    "Onion": 0.08,
+    "Tomato": 0.15
+  },
+  "storage_duration_months_per_forecast_quarter": 3.0,
+  "sensitivity": {
+    "storage_cost_multipliers": [0.5, 1.0, 1.5, 2.0],
+    "spoilage_rates": [0.0, 0.02, 0.05, 0.1],
+    "future_price_multipliers": [0.9, 1.0, 1.1],
+    "storage_duration_months": [3, 6, 9, 12]
+  },
+  "provenance": {
+    "quantity": "Scenario quantity, not observed farmer quantity; set to 1 quintal for scale-normalized simulations.",
+    "storage_rates": "Retained from legacy decision_support.py constants and interpreted as scenario INR/kg/month; not measured farmer or warehouse invoices.",
+    "spoilage_rates": "Retained from legacy decision_support.py constants and applied once as total loss over the evaluated holding decision; temporal calibration is unavailable.",
+    "transport_cost": "Zero because the retrospective forecast artifact does not contain a validated route-specific transport quote; zero is a scenario assumption, not an observed cost.",
+    "duration": "Forecast horizon quarters converted to months using three months per quarter; scenario duration only."
+  }
+}

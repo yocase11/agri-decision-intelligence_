@@ -1,0 +1,196 @@
+path,category,bytes,format
+.pytest_cache/.gitignore,other project file,39,no extension
+.pytest_cache/CACHEDIR.TAG,other project file,191,.tag
+.pytest_cache/README.md,documentation/report,310,.md
+.pytest_cache/v/cache/lastfailed,other project file,27,no extension
+.pytest_cache/v/cache/nodeids,other project file,5941,no extension
+ADIS_Complete_Performance_Report.html,documentation/report,4073518,.html
+ADIS_Complete_Performance_Report.md,documentation/report,115443,.md
+ADIS_Faculty_Summary.md,documentation/report,1958,.md
+agri_price_forecast.code-workspace,configuration/runner,160,.code-workspace
+AUDIT_REPORT.md,documentation/report,8212,.md
+custom_ui.py,other project file,20695,.py
+dataset_inventory.csv,dataset or tabular result,25694,.csv
+dataset_profiles.csv,dataset or tabular result,829,.csv
+demo_app.py,other project file,200,.py
+END_TO_END_RESEARCH_REPORT.md,documentation/report,180711,.md
+experiment_config.json,configuration/runner,1545,.json
+farmer_crop_dataset (1).csv,dataset or tabular result,11723,.csv
+farmer_decision_history.csv,dataset or tabular result,1233,.csv
+farmer_history.db,database,8192,.db
+forecast_dm_tests.csv,dataset or tabular result,4567,.csv
+forecast_final_table.csv,dataset or tabular result,3236,.csv
+forecast_final_validation_report.md,documentation/report,59616,.md
+forecast_fold_metrics.csv,dataset or tabular result,10318,.csv
+forecast_horizon_metrics.csv,dataset or tabular result,4407,.csv
+forecast_interval_metrics.csv,dataset or tabular result,2236,.csv
+forecast_intervals.csv,dataset or tabular result,13515,.csv
+forecast_model_summary.csv,dataset or tabular result,2317,.csv
+forecast_predictions.csv,dataset or tabular result,29937,.csv
+forecast_validation_onion.png,figure/image,289061,.png
+forecast_validation_results.csv,dataset or tabular result,29937,.csv
+forecast_validation_rice.png,figure/image,295913,.png
+forecast_validation_tomato.png,figure/image,363881,.png
+FORECASTING_DIAGNOSTIC_REPORT.md,documentation/report,26834,.md
+FORECASTING_VALIDATION_REPORT.md,documentation/report,59616,.md
+generate_adis_performance_report.py,other project file,68205,.py
+generate_forecasting_validation.py,other project file,833,.py
+generate_performance_report.py,other project file,9781,.py
+model_comparison.csv,dataset or tabular result,2317,.csv
+models/decision_report.json,configuration/runner,12954,.json
+models/forecast_summary.csv,dataset or tabular result,913,.csv
+models/onion_arima.pkl,serialized model artifact,57758,.pkl
+models/onion_best.pkl,serialized model artifact,156996,.pkl
+models/onion_lstm.pkl,serialized model artifact,150282,.pkl
+models/onion_sarima.pkl,serialized model artifact,155063,.pkl
+models/performance_metrics_report.html,documentation/report,24618,.html
+models/rice_arima.pkl,serialized model artifact,111841,.pkl
+models/rice_best.pkl,serialized model artifact,366295,.pkl
+models/rice_lstm.pkl,serialized model artifact,150290,.pkl
+models/rice_sarima.pkl,serialized model artifact,364878,.pkl
+models/tomato_arima.pkl,serialized model artifact,111843,.pkl
+models/tomato_best.pkl,serialized model artifact,366297,.pkl
+models/tomato_lstm.pkl,serialized model artifact,150282,.pkl
+models/tomato_sarima.pkl,serialized model artifact,364880,.pkl
+price dataset (1).csv,dataset or tabular result,3848,.csv
+project_artifact_inventory.csv,dataset or tabular result,11484,.csv
+README.md,documentation/report,3040,.md
+report_actual_vs_predicted_onion.png,figure/image,199171,.png
+report_actual_vs_predicted_rice.png,figure/image,194845,.png
+report_actual_vs_predicted_tomato.png,figure/image,220086,.png
+report_end_to_end_cost.png,figure/image,87655,.png
+report_forecast_error_comparison.png,figure/image,81160,.png
+report_forecast_horizon_rmse.png,figure/image,306317,.png
+report_forecast_model_comparison.png,figure/image,102245,.png
+report_interval_coverage.png,figure/image,82832,.png
+report_routing_baselines.png,figure/image,153301,.png
+report_routing_cost_comparison.png,figure/image,87999,.png
+report_routing_distance_comparison.png,figure/image,92787,.png
+report_routing_quantity_sensitivity.png,figure/image,120814,.png
+report_routing_sensitivity.png,figure/image,130240,.png
+report_sell_spoilage_sensitivity.png,figure/image,110300,.png
+report_sell_storage_sensitivity.png,figure/image,117477,.png
+report_sell_store_baselines.png,figure/image,123859,.png
+report_sell_store_distribution.png,figure/image,76056,.png
+report_sell_store_regret.png,figure/image,90323,.png
+report_warehouse_cost_comparison.png,figure/image,96734,.png
+report_warehouse_cost_components.png,figure/image,116631,.png
+report_warehouse_storage_sensitivity.png,figure/image,103595,.png
+report_warehouse_transport_sensitivity.png,figure/image,127952,.png
+report_warehouse_utilization.png,figure/image,100731,.png
+requirements.txt,documentation/report,202,.txt
+ROUTING_AUDIT_REPORT.md,documentation/report,7462,.md
+routing_baseline_comparison.csv,dataset or tabular result,23030,.csv
+routing_cost_by_crop.png,figure/image,103061,.png
+routing_cost_components.png,figure/image,70787,.png
+routing_distance_comparison.png,figure/image,101328,.png
+routing_method_comparison.png,figure/image,152414,.png
+routing_quantity_sensitivity.png,figure/image,144211,.png
+routing_research_assumptions.json,configuration/runner,1206,.json
+routing_results.csv,dataset or tabular result,11004,.csv
+routing_routes.csv,dataset or tabular result,11004,.csv
+routing_sensitivity.csv,dataset or tabular result,47665,.csv
+routing_sensitivity.png,figure/image,232977,.png
+routing_summary.csv,dataset or tabular result,8566,.csv
+routing_transport_sensitivity.png,figure/image,149847,.png
+routing_validation_report.md,documentation/report,25881,.md
+run_sell_store_research.py,other project file,941,.py
+sell_store_agreement.png,figure/image,302792,.png
+sell_store_assumptions.json,configuration/runner,1363,.json
+SELL_STORE_AUDIT_REPORT.md,documentation/report,5198,.md
+sell_store_baseline_summary.csv,dataset or tabular result,4333,.csv
+sell_store_decisions.csv,dataset or tabular result,40441,.csv
+sell_store_forecast_error_disagreement.png,figure/image,183012,.png
+sell_store_forecast_error_sensitivity.csv,dataset or tabular result,5500,.csv
+sell_store_regret.png,figure/image,288451,.png
+sell_store_sensitivity.csv,dataset or tabular result,334430,.csv
+sell_store_spoilage_sensitivity.png,figure/image,151043,.png
+sell_store_storage_cost_sensitivity.png,figure/image,193817,.png
+sell_store_summary.csv,dataset or tabular result,6948,.csv
+sell_store_validation_report.md,documentation/report,48026,.md
+sell_store_values_by_crop.png,figure/image,97934,.png
+src/__init__.py,source code,72,.py
+src/advanced_decision_system.py,source code,10528,.py
+src/api.py,source code,3121,.py
+src/app.py,source code,22618,.py
+src/chatbot.py,source code,5265,.py
+src/chatbot_ui.py,source code,2001,.py
+src/complete_system.py,source code,27815,.py
+src/create_agri_dataset.py,source code,8333,.py
+src/dashboard.py,source code,9202,.py
+src/decision.py,source code,856,.py
+src/decision_model.py,source code,335,.py
+src/decision_support.py,source code,18818,.py
+src/forecast.py,source code,2788,.py
+src/forecast_validation.py,source code,52395,.py
+src/forecasting.py,source code,740,.py
+src/mcdm.py,source code,2654,.py
+src/price_pipeline.py,source code,24666,.py
+src/routing.py,source code,5457,.py
+src/routing_research.py,source code,40470,.py
+src/run_full_pipeline.py,source code,13178,.py
+src/sell_store_research.py,source code,36706,.py
+src/storage_opt.py,source code,867,.py
+src/train_agri_model.py,source code,8411,.py
+src/train_simple_agri_model.py,source code,5403,.py
+src/trained_agri_chatbot.py,source code,6188,.py
+src/transport_opt.py,source code,340,.py
+src/warehouse_research.py,source code,38460,.py
+table_end_to_end_pipeline.csv,dataset or tabular result,14250,.csv
+table_f1_forecast_comparison.csv,dataset or tabular result,3831,.csv
+table_f2_forecast_horizon.csv,dataset or tabular result,7251,.csv
+table_f3_forecast_folds.csv,dataset or tabular result,14173,.csv
+table_f4_selected_models.csv,dataset or tabular result,209,.csv
+table_r1_routing_performance.csv,dataset or tabular result,327,.csv
+table_r2_routing_baselines.csv,dataset or tabular result,963,.csv
+table_r3_routing_sensitivity.csv,dataset or tabular result,537,.csv
+table_r_routing_performance.csv,dataset or tabular result,964,.csv
+table_s_transport_comparison.csv,dataset or tabular result,1073,.csv
+table_ss1_sell_store_by_crop.csv,dataset or tabular result,380,.csv
+table_ss2_sell_store_models.csv,dataset or tabular result,6717,.csv
+table_ss3_decision_agreement.csv,dataset or tabular result,687,.csv
+table_ss4_decision_regret.csv,dataset or tabular result,507,.csv
+table_ss5_simulated_net_value.csv,dataset or tabular result,462,.csv
+table_ss6_decision_distribution.csv,dataset or tabular result,1867,.csv
+table_ss_sensitivity_summary.csv,dataset or tabular result,3239,.csv
+table_w1_warehouse_results.csv,dataset or tabular result,384,.csv
+table_w2_solver_status.csv,dataset or tabular result,42,.csv
+table_w3_warehouse_cost_components.csv,dataset or tabular result,235,.csv
+table_w4_warehouse_baselines.csv,dataset or tabular result,1024,.csv
+table_w5_warehouse_utilization.csv,dataset or tabular result,3253,.csv
+table_w6_warehouse_sensitivity.csv,dataset or tabular result,1105,.csv
+table_w_warehouse_utilization.csv,dataset or tabular result,3252,.csv
+table_x_sell_store_performance.csv,dataset or tabular result,2630,.csv
+table_y_sell_store_sensitivity.csv,dataset or tabular result,1740,.csv
+table_z_warehouse_optimization.csv,dataset or tabular result,1334,.csv
+tamilnadu_full_warehouse_dataset (1).csv,dataset or tabular result,8075,.csv
+templates/chat.html,documentation/report,9863,.html
+templates/dashboard.html,documentation/report,28473,.html
+templates/login.html,documentation/report,4083,.html
+templates/performance_metrics.html,documentation/report,22152,.html
+templates/performance_metrics_simple.html,documentation/report,27835,.html
+tests/conftest.py,test,199,.py
+tests/test_complete_system.py,test,3469,.py
+tests/test_decision_model.py,test,530,.py
+tests/test_forecasting.py,test,12122,.py
+tests/test_integrated_pipeline.py,test,3013,.py
+tests/test_pipeline.py,test,854,.py
+tests/test_routing_research.py,test,13851,.py
+tests/test_sell_store_research.py,test,9188,.py
+tests/test_warehouse_research.py,test,8161,.py
+train_agri_model.bat,configuration/runner,477,.bat
+update_summary.txt,documentation/report,2972,.txt
+warehouse_allocation_by_warehouse.png,figure/image,114681,.png
+WAREHOUSE_AUDIT_REPORT.md,documentation/report,8371,.md
+warehouse_baseline_comparison.csv,dataset or tabular result,20625,.csv
+warehouse_cost_by_crop_method.png,figure/image,109895,.png
+warehouse_cost_components.png,figure/image,113944,.png
+warehouse_optimization_results.csv,dataset or tabular result,498085,.csv
+warehouse_research_assumptions.json,configuration/runner,1498,.json
+warehouse_sensitivity.csv,dataset or tabular result,75156,.csv
+warehouse_storage_sensitivity.png,figure/image,130974,.png
+warehouse_summary.csv,dataset or tabular result,8418,.csv
+warehouse_transport_sensitivity.png,figure/image,147158,.png
+warehouse_utilization.csv,dataset or tabular result,306133,.csv
+warehouse_utilization.png,figure/image,119170,.png
+warehouse_validation_report.md,documentation/report,27052,.md
